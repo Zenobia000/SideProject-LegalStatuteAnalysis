@@ -1,0 +1,44 @@
+# 國考法律題型分析系統 - 配置文件
+
+# 應用程式設定
+app:
+  name: "國考法律題型分析系統"
+  version: "1.0.0"
+  debug: true
+  
+# 資料庫設定
+database:
+  type: "sqlite"
+  path: "data/legal_analysis.db"
+  
+# AI 模型設定
+models:
+  text_classifier:
+    model_name: "bert-base-chinese"
+    max_length: 512
+    batch_size: 16
+  
+  legal_nlp:
+    tokenizer: "jieba"
+    language: "zh-TW"
+    
+# 數據處理設定
+data_processing:
+  pdf_extraction:
+    method: "pdfplumber"
+    encoding: "utf-8"
+  
+  text_preprocessing:
+    remove_punctuation: false
+    lowercase: false
+    
+# API 設定
+api:
+  host: "0.0.0.0"
+  port: 8000
+  cors_origins: ["*"]
+  
+# 日誌設定
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
