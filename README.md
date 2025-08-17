@@ -6,8 +6,10 @@
 
 ### 📋 開發狀態
 **當前版本**: v0.1.0 (MVP 開發中)  
-**完成度**: 80% (第一迭代)  
-**運行狀態**: ✅ 本地開發環境運行中
+**完成度**: 90% (第一迭代)  
+**運行狀態**: ✅ 本地開發環境運行中  
+**PostgreSQL**: ✅ Docker 容器運行中  
+**當前任務**: AI 分析服務開發
 
 ### 🏃‍♂️ 快速啟動
 ```bash
@@ -18,30 +20,34 @@ cd LegalStatuteAnalysis
 # 2. 安裝依賴 (使用 Poetry)
 poetry install
 
-# 3. 配置環境變數
+# 3. 啟動 PostgreSQL (Docker)
+docker-compose up -d postgresql redis
+
+# 4. 配置環境變數
 cp .env.example .env
 # 編輯 .env 填入必要配置
 
-# 4. 初始化資料庫
+# 5. 初始化資料庫
 poetry run python -c "from src.main.python.core.database_init import initialize_database; initialize_database()"
 
-# 5. 啟動 API 服務
+# 6. 啟動 API 服務
 poetry run uvicorn src.main.python.main:app --host 0.0.0.0 --port 8000 --reload
 
-# 6. 查看 API 文檔
+# 7. 查看 API 文檔
 # 瀏覽器開啟: http://localhost:8000/docs
 ```
 
 ### ✅ 已實現功能
-- 🔐 **用戶認證系統** - JWT 登入/註冊/驗證
-- 🗄️ **資料庫架構** - 完整 ORM 模型 (4張核心表)
-- 🌐 **REST API 基礎** - FastAPI + 自動 Swagger 文檔
-- ⚙️ **系統配置** - 環境管理 + 結構化日誌
+- 🔐 **用戶認證系統** - JWT 登入/註冊/驗證 (100%)
+- 🗄️ **資料庫架構** - PostgreSQL + 4張核心表 (100%)
+- 🌐 **REST API 基礎** - FastAPI + 自動 Swagger 文檔 (100%)
+- ⚙️ **系統配置** - 環境管理 + 結構化日誌 (100%)
+- 📄 **文件處理服務** - PDF 上傳 + OCR 文字識別 (100%)
 
 ### 🔄 開發中功能  
-- 📄 **文件處理服務** (下個任務)
-- 🤖 **AI 分析引擎** (規劃中)
-- 📚 **法條知識庫** (規劃中)
+- 🤖 **AI 分析引擎** - LangChain + OpenAI (30%)
+- 📚 **法條知識庫** - 向量搜索系統 (0%)
+- 🧪 **單元測試** - pytest 自動化測試 (0%)
 
 ## 專案概述
 
@@ -88,7 +94,9 @@ poetry run uvicorn src.main.python.main:app --host 0.0.0.0 --port 8000 --reload
 ### 系統需求
 - **Python**: 3.11+
 - **Poetry**: 1.5+ (依賴管理)
-- **資料庫**: SQLite (開發) / PostgreSQL (生產)
+- **資料庫**: PostgreSQL (Docker 容器)
+- **Redis**: 6.0+ (快取服務)
+- **Docker**: 20.10+ (容器化部署)
 - **作業系統**: Windows/macOS/Linux
 
 ### 開發工具

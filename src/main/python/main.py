@@ -13,6 +13,7 @@ from .core.logging import setup_logging
 from .core.database_init import initialize_database
 from .api.auth import router as auth_router
 from .api.documents import router as documents_router
+from .api.analysis import router as analysis_router
 
 # Setup logging
 setup_logging()
@@ -63,6 +64,7 @@ if settings.debug:
 # Include API routers
 app.include_router(auth_router, prefix=settings.api_prefix)
 app.include_router(documents_router, prefix=settings.api_prefix)
+app.include_router(analysis_router, prefix=settings.api_prefix)
 
 
 # Health check endpoints

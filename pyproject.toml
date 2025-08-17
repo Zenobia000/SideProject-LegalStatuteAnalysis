@@ -56,6 +56,9 @@ langchain = "^0.1.0"
 langchain-openai = "^0.0.8"
 openai = "^1.0.0"
 
+# Vector Database (pgvector support)
+pgvector = "^0.2.0"
+
 [tool.poetry.group.dev.dependencies]
 # Testing
 pytest = "^7.4.0"
