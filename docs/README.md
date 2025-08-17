@@ -18,7 +18,8 @@ docs/
 │   └── mvp_tech_spec.md              # MVP 技術規格書
 ├── architecture/                      # 架構設計文檔
 │   └── system_architecture_document.md # 系統架構設計文檔
-├── design/                           # 詳細設計文檔  
+├── design/                           # 詳細設計文檔
+│   └── system_design_document.md    # 系統詳細設計文檔
 ├── security/                         # 安全相關文檔
 │   └── mvp_security_checklist.md    # MVP 安全檢查清單
 └── launch/                           # 上線準備文檔
@@ -62,7 +63,21 @@ docs/
 - AWS 雲端原生部署架構
 - 向量資料庫與知識圖譜設計
 
-### 3. 安全階段 (Security)
+### 3. 設計階段 (Design)
+
+#### [`system_design_document.md`](./design/system_design_document.md)
+**系統詳細設計文檔** - 核心模組的具體實現設計，提供開發實施的詳細藍圖
+- 📌 **核心內容**: 模組設計、類別圖、數據庫設計、API 設計、測試策略
+- 🎯 **目標讀者**: 開發工程師、測試工程師、代碼審查者
+- ⏱️ **更新頻率**: 詳細設計變更時更新
+
+**設計重點**:
+- 四大核心模組詳細設計（認證、文件處理、AI 分析、知識庫）
+- 完整的資料庫 Schema 和索引策略
+- 錯誤處理和容錯機制設計
+- 完整的測試策略和部署考量
+
+### 4. 安全階段 (Security)
 
 #### [`mvp_security_checklist.md`](./security/mvp_security_checklist.md)
 **MVP 安全檢查清單** - 簡化版安全檢查，專注基礎安全要求
@@ -76,7 +91,7 @@ docs/
 - 檔案上傳安全掃描
 - AI 輸入輸出內容過濾
 
-### 4. 上線階段 (Launch)
+### 5. 上線階段 (Launch)
 
 #### [`mvp_launch_checklist.md`](./launch/mvp_launch_checklist.md)
 **MVP 上線檢查清單** - 確保系統可穩定運行的最小準備
