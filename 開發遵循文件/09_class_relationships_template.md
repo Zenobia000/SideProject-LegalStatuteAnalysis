@@ -27,7 +27,8 @@
 5.  [設計模式應用 (Design Pattern Applications)](#5-設計模式應用-design-pattern-applications)
 6.  [SOLID 原則遵循情況 (SOLID Principles Adherence)](#6-solid-原則遵循情況-solid-principles-adherence)
 7.  [接口契約 (Interface Contracts)](#7-接口契約-interface-contracts)
-8.  [附錄 (Appendix)](#8-附錄-appendix)
+8.  [技術選型與依賴 (Technical Choices & Dependencies)](#8-技術選型與依賴-technical-choices--dependencies)
+9.  [附錄 (Appendix)](#9-附錄-appendix)
 
 ---
 
@@ -172,7 +173,25 @@ classDiagram
 
 ---
 
-## 8. 附錄 (Appendix)
+## 8. 技術選型與依賴 (Technical Choices & Dependencies)
+
+*   `[列出支撐上述類別/組件實現所採用的語言、框架、庫、運行時與基礎設施依賴，並給出簡要理由，關聯 ADR。]`
+
+| 類別/組件 | 語言/框架 | 關鍵庫/工具 | 版本/約束 | 適用範圍 | 選擇理由 | 備選方案 | 風險/成熟度 | 關聯 ADR |
+| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
+| `ProductService` | Python / FastAPI | Pydantic, Dependency Injection | Python 3.11+ | API 層/服務層 | 開發效率高，契約清晰 | Node/Express | 成熟 | ADR-001 |
+| `PostgresProductRepository` | Python | SQLAlchemy | 2.x | 資料訪問 | ORM 穩定，社群大 | psycopg 原生 | 成熟 | ADR-002 |
+| `Product` | Python | dataclasses/pydantic | - | Domain | 型別安全、序列化友好 | 自定義模型 | 成熟 | ADR-003 |
+| ... | ... | ... | ... | ... | ... | ... | ... | ... |
+
+- 外部依賴（基礎設施/雲服務）：`PostgreSQL`, `Redis`, `Object Storage (S3)` 等，請標註用途與關鍵配置（例如連線池、重試策略）。
+- 非功能約束（NFR）：性能/可用性/安全/可觀測性最低要求與對應支持（如結構化日誌、健康檢查）。
+
+> 提示：若技術選型牽涉設計權衡，請建立對應 ADR，並在上表 `關聯 ADR` 欄位填入編號（如 ADR-004）。
+
+---
+
+## 9. 附錄 (Appendix)
 
 *   `[可以包含任何補充信息，例如更詳細的、針對特定子模組的類別圖，或關於特定設計決策的深入討論。]`
 

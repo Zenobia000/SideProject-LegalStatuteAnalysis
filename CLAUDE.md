@@ -91,11 +91,15 @@ This file provides essential guidance to Claude Code (claude.ai/code) when worki
 - **前端展示層**: 響應式 Web 介面、數據視覺化
 - **持久化層**: 法規資料庫、用戶數據、分析結果
 
-### 🎯 **DEVELOPMENT STATUS**
+### 🎯 **DEVELOPMENT STATUS** (Updated: 2025-08-17)
 - **Setup**: ✅ Completed - AI/ML project structure established
-- **Core Features**: 🔄 In Development - Legal text processing pipeline
-- **Testing**: ⏳ Pending - Test framework setup
-- **Documentation**: 🔄 In Progress - API documentation
+- **Core Features**: 🔄 In Development - Document processing completed, AI analysis in progress  
+- **Document Processing**: ✅ Completed - PDF upload, OCR processing, storage management
+- **User Authentication**: ✅ Completed - JWT auth, user management APIs
+- **Database**: ✅ Completed - PostgreSQL with 4 core tables, relationships established
+- **API Framework**: ✅ Completed - FastAPI with CORS, lifecycle, exception handling
+- **Testing**: 🔄 In Progress - Manual testing completed, automation pending
+- **Documentation**: 🔄 In Progress - API documentation, system design documents
 
 ## 📋 LEGAL DOCUMENT RESOURCES
 
@@ -126,8 +130,11 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Run AI analysis pipeline
-python src/main/python/api/legal_analysis_api.py
+# Run FastAPI application
+uvicorn src.main.python.main:app --host 0.0.0.0 --port 8000 --reload
+
+# Run with Docker (PostgreSQL + Redis)
+docker-compose up -d
 
 # Run tests
 python -m pytest src/test/
@@ -135,8 +142,9 @@ python -m pytest src/test/
 # Jupyter notebook analysis
 jupyter lab notebooks/
 
-# Model training
-python src/main/python/training/train_legal_classifier.py
+# Code formatting
+black src/
+isort src/
 ```
 
 ## 🚨 TECHNICAL DEBT PREVENTION
@@ -180,9 +188,10 @@ Edit(file_path="existing_feature.py", old_string="...", new_string="...")
 國考法律題型分析系統/
 ├── CLAUDE.md              # Essential rules for Claude Code
 ├── README.md              # Project documentation
-├── LICENSE                # Project license
-├── .gitignore             # Git ignore patterns
-├── requirements.txt       # Python dependencies
+├── pyproject.toml         # Poetry dependencies and configuration
+├── poetry.lock            # Poetry lock file
+├── docker-compose.yml     # Docker services (PostgreSQL, Redis)
+├── .env.example           # Environment variables template
 ├── src/                   # Source code (NEVER put files in root)
 │   ├── main/              # Main application code
 │   │   ├── python/        # Python source code
@@ -202,11 +211,12 @@ Edit(file_path="existing_feature.py", old_string="...", new_string="...")
 │       ├── unit/          # Unit tests
 │       ├── integration/   # Integration tests
 │       └── fixtures/      # Test data
-├── data/                  # Legal document datasets
-│   ├── raw/               # Original legal documents (PDFs)
+├── data/                  # Legal document datasets  
+│   ├── uploads/           # User uploaded documents
 │   ├── processed/         # Processed and structured data
 │   ├── external/          # External legal databases
-│   └── temp/              # Temporary processing files
+│   ├── temp/              # Temporary processing files
+│   └── *.pdf              # Sample legal documents (5 core laws)
 ├── notebooks/             # Jupyter analysis notebooks
 │   ├── exploratory/       # Legal text exploration
 │   ├── experiments/       # AI model experiments
@@ -226,9 +236,10 @@ Edit(file_path="existing_feature.py", old_string="...", new_string="...")
 └── logs/                  # Application logs
 ```
 
-### 🎯 **專案特色**
-- **法律文本 NLP**: 專門針對中文法律條文的自然語言處理
-- **題型分析 AI**: 基於歷年考題的模式識別與預測
-- **知識圖譜**: 法條間關聯性的圖形化表示
-- **個性化推薦**: 基於學習歷程的智慧推薦算法
-- **即時更新**: 法規異動的自動偵測與更新機制
+### 🎯 **專案特色** (MVP Stage)
+- **文件處理系統**: PDF 上傳、OCR 文字識別 (PaddleOCR + Tesseract)
+- **用戶認證管理**: JWT Token 認證、用戶註冊登入、權限管理
+- **資料庫架構**: PostgreSQL + 4張核心表 (users, documents, legal_articles, question_analyses)
+- **RESTful API**: FastAPI 框架、自動文檔生成、CORS 支援
+- **容器化部署**: Docker Compose (PostgreSQL + Redis)
+- **代碼品質**: Poetry 依賴管理、Black/isort 格式化、結構化日誌

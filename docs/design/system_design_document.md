@@ -485,6 +485,36 @@ erDiagram
 *   監控告警處理：高錯誤率、響應延遲、資源使用異常
 *   災難恢復：資料備份恢復、服務重啟、跨區域切換
 
+
+---
+
+## 9. 技術選型詳述（Technical Choices）
+
+| 類別 | 選型 | 理由（MVP） | 備選方案 | 風險/成熟度 | 關聯 ADR |
+| :-- | :-- | :-- | :-- | :-- | :-- |
+| 後端框架 | FastAPI (Python) | 高開發效率，型別/契約友好，自帶 OpenAPI | Node.js/Express, Go/Gin | 成熟；Python 生態強 | ADR-001 |
+| AI/LLM | OpenAI API | 成本可控、即用型、中文表現佳 | 本地 LLM、Anthropic | 供應商依賴 | ADR-002 |
+| OCR | PaddleOCR | 中英/中日混排表現穩定，易集成 | Tesseract | 中；字庫影響準確度 | ADR-003 |
+| 資料庫 | PostgreSQL + pgvector | 事務與向量支持兼備 | MySQL + 向量插件 | 成熟；維運簡單 | ADR-004 |
+| 快取 | Redis | 熱點結果快取，提升響應 | Memcached | 成熟；易用 | ADR-005 |
+| 前端 | React + TypeScript | 生態成熟，快速搭建 | Vue, Svelte | 成熟 | ADR-006 |
+| 日誌/觀測 | 結構化日誌 + /metrics | 快速落地可觀測性最小集 | OpenTelemetry 全量 | 成熟；MVP 足夠 | ADR-007 |
+| 部署 | Docker Compose | 單機快速部署 | K8s | 成熟；MVP 不必 | ADR-008 |
+
+> 備註：ADR 如未建立，請在首次選型落實時補檔，並於本表回填編號。
+
+### 9.1 類別/組件 ↔ 技術選型對應表（與 09 模板對齊）
+
+| 類別/組件 | 語言/框架 | 關鍵庫/工具 | 適用範圍 | 備註 |
+| :-- | :-- | :-- | :-- | :-- |
+| `DocumentService` | Python / FastAPI | SQLAlchemy, boto3(S3), PaddleOCR | 文件處理/儲存 | 與 `documents` 表對應 |
+| `AnalysisService` | Python | LangChain, OpenAI SDK, Redis | AI 分析/快取 | 降級到規則引擎（ADR-002） |
+| `KnowledgeService` | Python | pgvector, SQLAlchemy | 向量檢索 | `legal_articles` 表與 ivfflat |
+| `AuthService` | Python / FastAPI | PyJWT, passlib | 認證/授權 | JWT HS256 |
+| `User`/`Document`/`QuestionAnalysis` | Python | Pydantic/ORM 模型 | Domain/ORM | 與數據字典一致 |
+
+> 若有新類別/組件，請同步在本表與 `開發遵循文件/09_class_relationships_template.md` 所生成的文檔中維護。
+
 ---
 
 **文件審核記錄 (Review History):**

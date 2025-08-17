@@ -1,0 +1,127 @@
+[tool.poetry]
+name = "legal-statute-analysis"
+version = "0.1.0"
+description = "國考法律題型分析系統 - 結合生成式 AI 和資訊系統整合的法律學習平台"
+authors = ["Legal Analysis Team"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+# Core AI/ML Libraries
+torch = "^2.0.0"
+transformers = "^4.30.0"
+numpy = "^1.24.0"
+pandas = "^2.0.0"
+scikit-learn = "^1.3.0"
+
+# Natural Language Processing (Chinese Legal Text)
+jieba = "^0.42.1"
+opencc-python-reimplemented = "^0.1.7"
+spacy = "^3.6.0"
+
+# Web Framework & API
+fastapi = "^0.100.0"
+uvicorn = "^0.22.0"
+pydantic = {extras = ["email"], version = "^2.0.0"}
+requests = "^2.31.0"
+
+# Database & Storage
+sqlalchemy = "^2.0.0"
+alembic = "^1.12.0"
+psycopg2-binary = "^2.9.0"
+redis = "^4.6.0"
+
+# PDF Processing & OCR (Legal Documents)
+PyPDF2 = "^3.0.0"
+pdfplumber = "^0.9.0"
+pymupdf = "^1.23.0"
+paddleocr = "^2.7.0"
+paddlepaddle = "^2.5.0"
+pytesseract = "^0.3.10"
+pillow = "^10.0.0"
+
+# Configuration & Environment
+python-dotenv = "^1.0.0"
+pydantic-settings = "^2.0.0"
+pyyaml = "^6.0"
+
+# Security & Auth
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.6"
+
+# AI & LangChain
+langchain = "^0.1.0"
+langchain-openai = "^0.0.8"
+openai = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+# Testing
+pytest = "^7.4.0"
+pytest-asyncio = "^0.21.0"
+pytest-cov = "^4.1.0"
+httpx = "^0.25.0"
+
+# Development Tools
+black = "^23.7.0"
+flake8 = "^6.0.0"
+isort = "^5.12.0"
+pre-commit = "^3.3.0"
+
+# Data Processing & Analysis (Dev only)
+matplotlib = "^3.7.0"
+seaborn = "^0.12.0"
+plotly = "^5.15.0"
+jupyter = "^1.0.0"
+jupyterlab = "^4.0.0"
+
+[tool.poetry.group.ml.dependencies]
+# Model Deployment & Monitoring
+mlflow = "^2.5.0"
+tensorboard = "^2.13.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 88
+src_paths = ["src", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["src/test"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "e2e: End-to-end tests",
+    "slow: Slow running tests",
+]

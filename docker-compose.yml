@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgresql:
+    image: docker.io/postgres:17.4
+    container_name: legal-analysis-postgresql
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'default_db'
+    volumes:
+      - ./volumes/postgresql:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U admin -d default_db']
+      interval: 10s
+      timeout: 8s
+      retries: 5
+    ports:
+      - '5432:5432'
+    networks:
+      - legal-analysis-network
+
+  # Redis Cache (for future use)
+  redis:
+    image: redis:7-alpine
+    container_name: legal-analysis-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - ./volumes/redis:/data
+    ports:
+      - '6379:6379'
+    networks:
+      - legal-analysis-network
+
+  # FastAPI Application (for production deployment)
+  api:
+    build: .
+    container_name: legal-analysis-api
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@postgresql:5432/default_db
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    ports:
+      - '8000:8000'
+    networks:
+      - legal-analysis-network
+    volumes:
+      - ./data/uploads:/app/data/uploads
+      - ./logs:/app/logs
+
+networks:
+  legal-analysis-network:
+    driver: bridge
+
+volumes:
+  postgresql_data:
+  redis_data:

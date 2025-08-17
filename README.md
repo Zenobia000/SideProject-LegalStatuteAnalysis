@@ -2,12 +2,46 @@
 
 **結合生成式 AI 和資訊系統整合的法律題型分析平台**
 
-## Quick Start
+## 🚀 Quick Start
 
-1. **Read CLAUDE.md first** - Contains essential rules for Claude Code
-2. Follow the pre-task compliance checklist before starting any work
-3. Use proper module structure under `src/main/python/`
-4. Commit after every completed task
+### 📋 開發狀態
+**當前版本**: v0.1.0 (MVP 開發中)  
+**完成度**: 80% (第一迭代)  
+**運行狀態**: ✅ 本地開發環境運行中
+
+### 🏃‍♂️ 快速啟動
+```bash
+# 1. 克隆專案
+git clone [repository-url]
+cd LegalStatuteAnalysis
+
+# 2. 安裝依賴 (使用 Poetry)
+poetry install
+
+# 3. 配置環境變數
+cp .env.example .env
+# 編輯 .env 填入必要配置
+
+# 4. 初始化資料庫
+poetry run python -c "from src.main.python.core.database_init import initialize_database; initialize_database()"
+
+# 5. 啟動 API 服務
+poetry run uvicorn src.main.python.main:app --host 0.0.0.0 --port 8000 --reload
+
+# 6. 查看 API 文檔
+# 瀏覽器開啟: http://localhost:8000/docs
+```
+
+### ✅ 已實現功能
+- 🔐 **用戶認證系統** - JWT 登入/註冊/驗證
+- 🗄️ **資料庫架構** - 完整 ORM 模型 (4張核心表)
+- 🌐 **REST API 基礎** - FastAPI + 自動 Swagger 文檔
+- ⚙️ **系統配置** - 環境管理 + 結構化日誌
+
+### 🔄 開發中功能  
+- 📄 **文件處理服務** (下個任務)
+- 🤖 **AI 分析引擎** (規劃中)
+- 📚 **法條知識庫** (規劃中)
 
 ## 專案概述
 
@@ -49,18 +83,38 @@
 └── docs/                  # 項目文檔
 ```
 
-## 環境設置
+## 🔧 開發環境需求
 
+### 系統需求
+- **Python**: 3.11+
+- **Poetry**: 1.5+ (依賴管理)
+- **資料庫**: SQLite (開發) / PostgreSQL (生產)
+- **作業系統**: Windows/macOS/Linux
+
+### 開發工具
 ```bash
-# 創建虛擬環境
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+# Poetry 安裝 (如未安裝)
+curl -sSL https://install.python-poetry.org | python3 -
 
-# 安裝依賴
-pip install -r requirements.txt
+# 開發環境設置
+poetry install --with dev
 
-# 啟動 Jupyter Lab
-jupyter lab notebooks/
+# 代碼格式化
+poetry run black src/
+poetry run isort src/
+
+# 啟動 Jupyter (可選)
+poetry run jupyter lab notebooks/
+```
+
+### 🧪 測試
+```bash
+# 單元測試 (規劃中)
+poetry run pytest src/test/
+
+# API 測試
+curl http://localhost:8000/health
+curl http://localhost:8000/docs
 ```
 
 ## 開發指南
