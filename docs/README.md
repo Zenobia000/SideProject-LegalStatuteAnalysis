@@ -14,8 +14,10 @@
 docs/
 ├── README.md                          # 文檔中心首頁（本文件）
 ├── planning/                          # 規劃階段文檔
+│   ├── project_brief_prd_summary.md  # 專案簡報 PRD 摘要
 │   └── mvp_tech_spec.md              # MVP 技術規格書
 ├── architecture/                      # 架構設計文檔
+│   └── system_architecture_document.md # 系統架構設計文檔
 ├── design/                           # 詳細設計文檔  
 ├── security/                         # 安全相關文檔
 │   └── mvp_security_checklist.md    # MVP 安全檢查清單
@@ -29,6 +31,12 @@ docs/
 
 ### 1. 規劃階段 (Planning)
 
+#### [`project_brief_prd_summary.md`](./planning/project_brief_prd_summary.md)
+**專案簡報 PRD 摘要** - 完整的產品需求文檔，定義專案目標、用戶故事與成功指標
+- 📌 **核心內容**: 專案概述、目標用戶、核心功能、里程碑規劃
+- 🎯 **目標讀者**: 產品經理、業務方、專案關係人
+- ⏱️ **更新頻率**: 產品需求變更時更新
+
 #### [`mvp_tech_spec.md`](./planning/mvp_tech_spec.md)
 **MVP 技術規格書** - 整合 PRD、系統架構、API 設計的輕量技術規格
 - 📌 **核心內容**: 問題定義、技術架構、API 契約、資料庫設計
@@ -40,7 +48,21 @@ docs/
 - 基於 RAG 的法律文本分析架構
 - PostgreSQL + pgvector 向量資料庫方案
 
-### 2. 安全階段 (Security)
+### 2. 架構階段 (Architecture)
+
+#### [`system_architecture_document.md`](./architecture/system_architecture_document.md)
+**系統架構設計文檔** - 詳細的系統架構設計，包含技術選型、部署策略與風險分析
+- 📌 **核心內容**: 架構目標、高層設計、技術選型、部署視圖、跨領域考量
+- 🎯 **目標讀者**: 架構師、技術負責人、開發團隊、DevOps
+- ⏱️ **更新頻率**: 架構重大變更時更新
+
+**技術架構亮點**:
+- 微服務 + 事件驅動架構模式
+- AI/ML 流水線整合設計
+- AWS 雲端原生部署架構
+- 向量資料庫與知識圖譜設計
+
+### 3. 安全階段 (Security)
 
 #### [`mvp_security_checklist.md`](./security/mvp_security_checklist.md)
 **MVP 安全檢查清單** - 簡化版安全檢查，專注基礎安全要求
@@ -54,7 +76,7 @@ docs/
 - 檔案上傳安全掃描
 - AI 輸入輸出內容過濾
 
-### 3. 上線階段 (Launch)
+### 4. 上線階段 (Launch)
 
 #### [`mvp_launch_checklist.md`](./launch/mvp_launch_checklist.md)
 **MVP 上線檢查清單** - 確保系統可穩定運行的最小準備
